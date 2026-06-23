@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ulya | Portfolio</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <style>
+    /* ── HERO ── */
+    .hero {
+      min-height: calc(100vh - 64px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(160deg, var(--pink-light) 0%, var(--lavender) 100%);
+      padding: 3rem 2rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* floating petals decoration */
+    .hero::before, .hero::after {
+      content: '🌸';
+      position: absolute;
+      font-size: 3rem;
+      opacity: 0.18;
+      animation: floatPetal 6s ease-in-out infinite;
+    }
+    .hero::before { top: 10%; left: 5%; animation-delay: 0s; }
+    .hero::after  { bottom: 12%; right: 6%; animation-delay: 3s; }
+
+    @keyframes floatPetal {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50%       { transform: translateY(-18px) rotate(12deg); }
+    }
+
+    .hero-inner {
+      max-width: 700px;
+      animation: fadeUp 0.9s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .avatar-wrap {
+      width: 600px; height: 600px;
+      margin: 0 auto 1.8rem;
+      position: relative;
+    }
+    .avatar-wrap img {
+      width: 100%;
+      height: 100%;
+     border-radius: 50%;
+     object-fit: cover;
+     object-position: center 15%;
+     display: block;
+     image-rendering: high-quality;
+     -webkit-backface-visibility: hidden;
+     transform: translateZ(0);
+     }
+     
+    /* fallback placeholder when no real photo */
+    .avatar-placeholder {
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--pink-mid), var(--lavender-deep));
+      border: 4px solid #fff;
+      box-shadow: 0 0 0 6px var(--pink-soft), 0 8px 30px rgba(194,98,142,0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+    }
+
+    .greeting {
+      font-size: 1rem;
+      color: var(--pink-deep);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 6vw, 3.5rem);
+      color: var(--text-dark);
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    .hero h1 span { color: var(--pink-deep); }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      color: var(--text-mid);
+      margin-bottom: 0.8rem;
+    }
+
+    .ambition-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #fff;
+      border: 1.5px solid var(--pink-soft);
+      border-radius: 50px;
+      padding: 0.45rem 1.2rem;
+      font-size: 0.9rem;
+      color: var(--lavender-deep);
+      font-weight: 700;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    /* ── ABOUT STRIP ── */
+    .about-strip {
+      background: #fff;
+      padding: 3.5rem 2rem;
+    }
+    .about-grid {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+    }
+    .about-card {
+      text-align: center;
+      padding: 2rem 1.2rem;
+    }
+    .about-icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+    .about-card h3 {
+      font-size: 1rem;
+      color: var(--pink-deep);
+      font-weight: 700;
+      margin-bottom: 0.4rem;
+    }
+    .about-card p { font-size: 0.9rem; color: var(--text-mid); }
+
+    /* ── QUICK LINKS ── */
+    .quick { background: var(--lavender); padding: 4rem 2rem; text-align: center; }
+    .quick h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--lavender-deep);
+      margin-bottom: 0.5rem;
+    }
+    .quick p { color: var(--text-mid); margin-bottom: 2rem; font-size: 0.95rem; }
+    .quick-grid {
+      max-width: 800px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1rem;
+    }
+    .quick-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 1.6rem 1rem;
+      text-decoration: none;
+      color: var(--text-dark);
+      border: 1.5px solid #fff;
+      box-shadow: var(--shadow);
+      transition: all 0.25s;
+      display: block;
+    }
+    .quick-card:hover {
+      border-color: var(--pink-soft);
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-hover);
+    }
+    .quick-card .icon { font-size: 2rem; margin-bottom: 0.6rem; }
+    .quick-card span { font-size: 0.9rem; font-weight: 700; color: var(--pink-deep); }
+  </style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a class="nav-logo" href="index.html">✿ Ulya</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li><a href="profile.html">Profile</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="game.html">Game</a></li>
+  </ul>
+  <button class="burger" id="burger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="avatar-wrap" style="width:150px; height:150px; margin:0 auto 1.8rem; border-radius:50%; overflow:hidden; border:4px solid #fff; box-shadow: 0 0 0 6px #f7c5d8, 0 8px 30px rgba(194,98,142,0.25);">
+      <img src="Image2.jpeg" alt="Ulya" style="width:100%; height:100%; object-fit:cover; object-position:center 5%; display:block;"/>
+    </div>
+    <p class="greeting">✨ Welcome to my world ✨</p>
+    <h1>Hi, I'm <span>Ulya!</span></h1>
+    <p class="hero-desc">A passionate Diploma student in Electronic Engineering (IoT)<br>at TVETMARA Petaling Jaya</p>
+    <div class="ambition-badge">
+      💻 Future Software / Data Analysis Engineer
+    </div>
+    <div class="hero-btns">
+      <a href="profile.html" class="btn btn-primary">View My Profile</a>
+      <a href="contact.html" class="btn btn-outline">Get In Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT STRIP -->
+<div class="about-strip">
+  <div class="about-grid">
+    <div class="about-card card">
+      <div class="about-icon">🎓</div>
+      <h3>Education</h3>
+      <p>Diploma in Electronic Engineering (IoT) at TVETMARA PJ</p>
+    </div>
+    <div class="about-card card">
+      <div class="about-icon">💡</div>
+      <h3>Skill</h3>
+      <p>Web Development — HTML, CSS, JavaScript & more</p>
+    </div>
+    <div class="about-card card">
+      <div class="about-icon">🏆</div>
+      <h3>Achievement</h3>
+      <p>Dean's List recipient & dedicated hard working student</p>
+    </div>
+    <div class="about-card card">
+      <div class="about-icon">🚀</div>
+      <h3>Goal</h3>
+      <p>To become a skilled Software / Data Analysis Engineer</p>
+    </div>
+  </div>
+</div>
+
+<!-- QUICK LINKS -->
+<div class="quick">
+  <h2>Explore My Pages</h2>
+  <p>Get to know me better through my portfolio pages ✨</p>
+  <div class="quick-grid">
+    <a href="profile.html" class="quick-card">
+      <div class="icon">👩‍💻</div>
+      <span>My Profile</span>
+    </a>
+    <a href="contact.html" class="quick-card">
+      <div class="icon">💌</div>
+      <span>Contact Me</span>
+    </a>
+    <a href="game.html" class="quick-card">
+      <div class="icon">🎮</div>
+      <span>Play a Game</span>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <p>Made with 🌸 by Ulya &nbsp;|&nbsp; DFI20433 Web Development &nbsp;|&nbsp; TVETMARA Petaling Jaya</p>
+</footer>
+
+<script>
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('navLinks');
+  burger.addEventListener('click', () => navLinks.classList.toggle('open'));
+</script>
+</body>
+</html>
