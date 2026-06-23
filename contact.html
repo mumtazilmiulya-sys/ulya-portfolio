@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ulya | Contact</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .page-hero {
+      background: linear-gradient(135deg, var(--pink-light) 0%, var(--lavender) 100%);
+      padding: 4rem 2rem 3rem;
+      text-align: center;
+    }
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      color: var(--pink-deep);
+    }
+    .page-hero p { color: var(--text-mid); margin-top: 0.4rem; }
+
+    /* ── FORM CARD ── */
+    .form-wrap {
+      max-width: 600px;
+      margin: 3rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .form-card {
+      background: #fff;
+      border: 1.5px solid var(--pink-soft);
+      border-radius: var(--radius);
+      padding: 2.2rem 2rem;
+      box-shadow: var(--shadow);
+    }
+
+    .form-group { margin-bottom: 1.3rem; }
+
+    label {
+      display: block;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-mid);
+      margin-bottom: 0.4rem;
+    }
+    label span.req { color: var(--pink-deep); }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="date"],
+    input[type="file"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 0.65rem 1rem;
+      border: 1.5px solid var(--pink-soft);
+      border-radius: var(--radius-sm);
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      background: var(--white);
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--pink-mid);
+      box-shadow: 0 0 0 3px rgba(233, 145, 180, 0.2);
+    }
+    input[type="file"] { padding: 0.5rem; cursor: pointer; }
+
+    .gender-row {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .gender-option {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.93rem;
+      color: var(--text-mid);
+      cursor: pointer;
+    }
+    .gender-option input[type="radio"] { accent-color: var(--pink-deep); width: 16px; height: 16px; }
+
+    .checkbox-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      font-size: 0.9rem;
+      color: var(--text-mid);
+    }
+    .checkbox-row input[type="checkbox"] { accent-color: var(--pink-deep); width: 16px; height: 16px; margin-top: 3px; flex-shrink: 0; }
+    .checkbox-row a { color: var(--pink-deep); text-decoration: underline; }
+
+    /* Error + success messages */
+    .err-msg {
+      display: none;
+      font-size: 0.82rem;
+      color: #c94040;
+      background: #fff0f0;
+      border: 1px solid #f5c0c0;
+      border-radius: 8px;
+      padding: 0.35rem 0.7rem;
+      margin-top: 0.35rem;
+    }
+    .err-msg.show { display: block; }
+
+    input.invalid, select.invalid { border-color: #e57070; }
+    input.valid   { border-color: #7ec8a0; }
+
+    /* Submit button */
+    .submit-btn {
+      width: 100%;
+      padding: 0.85rem;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: 'Nunito', sans-serif;
+      background: linear-gradient(135deg, var(--pink-mid), var(--lavender-deep));
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.25s;
+      box-shadow: 0 4px 16px rgba(194,98,142,0.3);
+      margin-top: 0.5rem;
+    }
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(194,98,142,0.4);
+    }
+    .submit-btn:active { transform: scale(0.98); }
+    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+    /* Success overlay */
+    .success-popup {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(60,20,50,0.45);
+      z-index: 200;
+      align-items: center;
+      justify-content: center;
+    }
+    .success-popup.show { display: flex; }
+    .success-box {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 2.5rem 2rem;
+      text-align: center;
+      max-width: 360px;
+      width: 90%;
+      box-shadow: 0 12px 40px rgba(194,98,142,0.25);
+      animation: popIn 0.4s cubic-bezier(.4,0,.2,1) both;
+    }
+    @keyframes popIn {
+      from { opacity:0; transform: scale(0.8); }
+      to   { opacity:1; transform: scale(1); }
+    }
+    .success-box .big-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+    .success-box h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--pink-deep);
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+    }
+    .success-box p { color: var(--text-mid); font-size: 0.93rem; margin-bottom: 1.2rem; }
+
+    /* Send error message */
+    .send-err {
+      display: none;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #c94040;
+      background: #fff0f0;
+      border: 1px solid #f5c0c0;
+      border-radius: 8px;
+      padding: 0.6rem 0.9rem;
+      margin-top: 0.8rem;
+    }
+    .send-err.show { display: block; }
+
+    @media (max-width: 600px) {
+      .form-card { padding: 1.4rem 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<nav id="navbar">
+  <a class="nav-logo" href="index.html">✿ Ulya</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="profile.html">Profile</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+    <li><a href="game.html">Game</a></li>
+  </ul>
+  <button class="burger" id="burger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="page-hero">
+  <h1>Contact Me 💌</h1>
+  <p>Fill in the form below to get in touch with me!</p>
+</div>
+
+<div class="form-wrap">
+  <div class="form-card">
+
+    <form id="contactForm" novalidate>
+
+      <!-- Full Name -->
+      <div class="form-group">
+        <label for="fullname">Full Name <span class="req">*</span></label>
+        <input type="text" id="fullname" name="full_name" placeholder="e.g. Ulya Binti Ahmad"/>
+        <div class="err-msg" id="err-fullname">Please enter your full name (min. 3 characters).</div>
+      </div>
+
+      <!-- Email -->
+      <div class="form-group">
+        <label for="email">Email Address <span class="req">*</span></label>
+        <input type="email" id="email" name="email" placeholder="e.g. ulya@email.com"/>
+        <div class="err-msg" id="err-email">Please enter a valid email address.</div>
+      </div>
+
+      <!-- Password -->
+      <div class="form-group">
+        <label for="password">Password <span class="req">*</span></label>
+        <input type="password" id="password" name="password" placeholder="Min. 8 characters"/>
+        <div class="err-msg" id="err-password">Password must be at least 8 characters.</div>
+      </div>
+
+      <!-- Date of Birth -->
+      <div class="form-group">
+        <label for="dob">Date of Birth <span class="req">*</span></label>
+        <input type="date" id="dob" name="dob"/>
+        <div class="err-msg" id="err-dob">Please select your date of birth.</div>
+      </div>
+
+      <!-- Gender -->
+      <div class="form-group">
+        <label>Gender <span class="req">*</span></label>
+        <div class="gender-row">
+          <label class="gender-option">
+            <input type="radio" name="gender" value="female"/> Female
+          </label>
+          <label class="gender-option">
+            <input type="radio" name="gender" value="male"/> Male
+          </label>
+          <label class="gender-option">
+            <input type="radio" name="gender" value="other"/> Prefer not to say
+          </label>
+        </div>
+        <div class="err-msg" id="err-gender">Please select your gender.</div>
+      </div>
+
+      <!-- Profile Photo -->
+      <div class="form-group">
+        <label for="photo">Profile Photo <span class="req">*</span></label>
+        <input type="file" id="photo" name="photo_name" accept="image/*"/>
+        <div class="err-msg" id="err-photo">Please upload a profile photo (image file).</div>
+      </div>
+
+      <!-- Terms & Conditions -->
+      <div class="form-group">
+        <div class="checkbox-row">
+          <input type="checkbox" id="terms"/>
+          <label for="terms" style="margin:0; font-weight:400;">
+            I agree to the <a href="#">Terms & Conditions</a> and <a href="#">Privacy Policy</a>. <span class="req">*</span>
+          </label>
+        </div>
+        <div class="err-msg" id="err-terms">You must agree to the terms and conditions.</div>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submitBtn">Send Message 💌</button>
+      <div class="send-err" id="sendErr">❌ Failed to send message. Please try again later.</div>
+
+    </form>
+  </div>
+</div>
+
+<!-- Success popup -->
+<div class="success-popup" id="successPopup">
+  <div class="success-box">
+    <div class="big-icon">🌸</div>
+    <h3>Message Sent!</h3>
+    <p>Thank you for reaching out, <span id="senderName"></span>! I'll get back to you soon 💕</p>
+    <button class="btn btn-primary" onclick="closePopup()">Back to Home</button>
+  </div>
+</div>
+
+<footer>
+  <p>Made with 🌸 by Ulya &nbsp;|&nbsp; DFI20433 Web Development &nbsp;|&nbsp; TVETMARA Petaling Jaya</p>
+</footer>
+
+<!-- EmailJS SDK -->
+<script src="https://unpkg.com/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+  document.getElementById('burger').addEventListener('click', () => {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+
+  // ===== EmailJS config — GANTI dengan ID/Key sebenar awak =====
+  const EMAILJS_PUBLIC_KEY  = "hwcAVbjoH1pWmOOQ4";  // public key awak
+  const EMAILJS_SERVICE_ID  = "service_djlm7ot";   // service ID awak
+  const EMAILJS_TEMPLATE_ID_NOTIFY = "template_nt8ctcb";  // template notification ke awak (admin)
+  const EMAILJS_TEMPLATE_ID_REPLY  = "template_pjmdqkx";  // template auto-reply ke user
+
+  emailjs.init(EMAILJS_PUBLIC_KEY);
+
+  // helpers
+  function showErr(id, inputEl) {
+    document.getElementById(id).classList.add('show');
+    if (inputEl) inputEl.classList.add('invalid');
+  }
+  function clearErr(id, inputEl) {
+    document.getElementById(id).classList.remove('show');
+    if (inputEl) { inputEl.classList.remove('invalid'); inputEl.classList.add('valid'); }
+  }
+
+  // live validation
+  const fullname = document.getElementById('fullname');
+  const email    = document.getElementById('email');
+  const password = document.getElementById('password');
+  const dob      = document.getElementById('dob');
+  const photo    = document.getElementById('photo');
+  const terms    = document.getElementById('terms');
+  const submitBtn = document.getElementById('submitBtn');
+  const sendErr   = document.getElementById('sendErr');
+
+  fullname.addEventListener('input', () => {
+    fullname.value.trim().length >= 3 ? clearErr('err-fullname', fullname) : showErr('err-fullname', fullname);
+  });
+  email.addEventListener('input', () => {
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value) ? clearErr('err-email', email) : showErr('err-email', email);
+  });
+  password.addEventListener('input', () => {
+    password.value.length >= 8 ? clearErr('err-password', password) : showErr('err-password', password);
+  });
+  dob.addEventListener('change', () => {
+    dob.value ? clearErr('err-dob', dob) : showErr('err-dob', dob);
+  });
+
+  // form submit validation + EmailJS send
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    sendErr.classList.remove('show');
+    let valid = true;
+
+    if (fullname.value.trim().length < 3) { showErr('err-fullname', fullname); valid = false; }
+    else clearErr('err-fullname', fullname);
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) { showErr('err-email', email); valid = false; }
+    else clearErr('err-email', email);
+
+    if (password.value.length < 8) { showErr('err-password', password); valid = false; }
+    else clearErr('err-password', password);
+
+    if (!dob.value) { showErr('err-dob', dob); valid = false; }
+    else clearErr('err-dob', dob);
+
+    const genderChecked = document.querySelector('input[name="gender"]:checked');
+    if (!genderChecked) { showErr('err-gender', null); valid = false; }
+    else document.getElementById('err-gender').classList.remove('show');
+
+    if (!photo.files || photo.files.length === 0) { showErr('err-photo', photo); valid = false; }
+    else clearErr('err-photo', photo);
+
+    if (!terms.checked) { showErr('err-terms', null); valid = false; }
+    else document.getElementById('err-terms').classList.remove('show');
+
+    if (!valid) return;
+
+    // Sediakan nama fail gambar sebagai teks (NOTA: gambar sebenar TIDAK dihantar
+    // sebagai attachment kerana EmailJS free plan tidak menyokong file attachment.
+    // Jika perlu hantar gambar sebenar, plan EmailJS perlu di-upgrade.)
+    const photoFileName = photo.files[0] ? photo.files[0].name : "(tiada fail)";
+
+    const templateParams = {
+      full_name: fullname.value.trim(),
+      email: email.value.trim(),
+      password: password.value,      // ⚠️ dihantar sebagai teks biasa, lihat nota keselamatan
+      dob: dob.value,
+      gender: genderChecked.value,
+      photo_name: photoFileName
+    };
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Sending...";
+
+    // Hantar DUA email serentak:
+    // 1) Notification ke awak (admin) - guna template_nt8ctcb
+    // 2) Auto-reply ke user - guna template_pjmdqkx
+    Promise.all([
+      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID_NOTIFY, templateParams),
+      emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID_REPLY, templateParams)
+    ])
+      .then(() => {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Send Message 💌";
+        document.getElementById('senderName').textContent = fullname.value.trim().split(' ')[0];
+        document.getElementById('successPopup').classList.add('show');
+      })
+      .catch((err) => {
+        console.error('EmailJS error:', err);
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Send Message 💌";
+        sendErr.classList.add('show');
+      });
+  });
+
+  function closePopup() {
+    document.getElementById('successPopup').classList.remove('show');
+    document.getElementById('contactForm').reset();
+    document.querySelectorAll('.valid, .invalid').forEach(el => el.classList.remove('valid','invalid'));
+    window.location.href = 'index.html';
+  }
+</script>
+</body>
+</html>
