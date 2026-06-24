@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap');
+
+:root {
+  --pink-light: #fde8f0;
+  --pink-soft:  #f7c5d8;
+  --pink-mid:   #e991b4;
+  --pink-deep:  #c2628e;
+  --lavender:   #e8dff5;
+  --lavender-mid: #c4aadf;
+  --lavender-deep: #9b72c8;
+  --white:      #fffbfd;
+  --text-dark:  #3d2340;
+  --text-mid:   #7a4f6d;
+  --text-light: #b589a4;
+  --shadow:     0 4px 20px rgba(194, 98, 142, 0.12);
+  --shadow-hover: 0 8px 30px rgba(194, 98, 142, 0.22);
+  --radius:     16px;
+  --radius-sm:  10px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Nunito', sans-serif;
+  background-color: var(--white);
+  color: var(--text-dark);
+  line-height: 1.7;
+}
+
+/* ── NAVBAR ── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 251, 253, 0.88);
+  backdrop-filter: blur(12px);
+  border-bottom: 1.5px solid var(--pink-soft);
+  padding: 0 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 64px;
+}
+
+.nav-logo {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  color: var(--pink-deep);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--text-mid);
+  font-weight: 600;
+  font-size: 0.95rem;
+  position: relative;
+  padding-bottom: 3px;
+  transition: color 0.25s;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 0; height: 2px;
+  background: var(--pink-deep);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover { color: var(--pink-deep); }
+.nav-links a:hover::after,
+.nav-links a.active::after { width: 100%; }
+.nav-links a.active { color: var(--pink-deep); }
+
+.burger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+.burger span {
+  display: block;
+  width: 24px; height: 2.5px;
+  background: var(--pink-deep);
+  border-radius: 2px;
+  transition: all 0.3s;
+}
+
+/* ── BUTTONS ── */
+.btn {
+  display: inline-block;
+  padding: 0.6rem 1.5rem;
+  border-radius: 50px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  border: none;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--pink-mid), var(--lavender-deep));
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(194, 98, 142, 0.35);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(194, 98, 142, 0.4);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--pink-deep);
+  border: 2px solid var(--pink-soft);
+}
+.btn-outline:hover {
+  background: var(--pink-light);
+  border-color: var(--pink-mid);
+  transform: translateY(-2px);
+}
+
+/* ── SECTION HELPERS ── */
+.section {
+  padding: 5rem 2rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  color: var(--pink-deep);
+  margin-bottom: 0.4rem;
+}
+
+.section-sub {
+  color: var(--text-light);
+  font-size: 0.95rem;
+  margin-bottom: 2.5rem;
+}
+
+.divider {
+  width: 50px; height: 3px;
+  background: linear-gradient(90deg, var(--pink-mid), var(--lavender-mid));
+  border-radius: 3px;
+  margin-bottom: 0.6rem;
+}
+
+/* ── CARDS ── */
+.card {
+  background: #fff;
+  border: 1.5px solid var(--pink-light);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+  transition: box-shadow 0.25s, transform 0.25s;
+}
+.card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-3px);
+}
+
+/* ── FOOTER ── */
+footer {
+  text-align: center;
+  padding: 2rem;
+  background: var(--pink-light);
+  color: var(--text-mid);
+  font-size: 0.9rem;
+  border-top: 1.5px solid var(--pink-soft);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 64px; left: 0; right: 0;
+    background: var(--white);
+    border-bottom: 1.5px solid var(--pink-soft);
+    padding: 1rem 2rem 1.5rem;
+    gap: 1rem;
+  }
+  .nav-links.open { display: flex; }
+  .burger { display: flex; }
+  .section { padding: 3rem 1.2rem; }
+  .section-title { font-size: 1.6rem; }
+}
